@@ -15,14 +15,12 @@ namespace DBS_LAB
         public Form2()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form2_FormClosed);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
-            //this.Hide();
-            //Form1 form1 = (Form1)Form1.ActiveForm;
-            //form1.Hide();
             form3.Show();
         }
 
@@ -30,6 +28,12 @@ namespace DBS_LAB
         {
             Form4 form4 = new Form4();
             form4.Show();
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
     }
 }

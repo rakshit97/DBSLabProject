@@ -17,7 +17,6 @@ namespace DBS_LAB
     {
         MySqlCommand comm = new MySqlCommand();
         MySqlConnection conn;
-        MySqlDataAdapter adapter;
 
         String[] depts = new String[] { "Aero", "Auto", "BioMed", "BioTech", "Chem", "Civil", "CSE", "ECE", "EEE", "ICE", "ICT", "Mech", "MechTron", "P&M" };
 
@@ -26,19 +25,23 @@ namespace DBS_LAB
         {
             InitializeComponent();
             comboBox3.Items.AddRange(depts);
+            this.FormClosed += new FormClosedEventHandler(Form4_FormClosed);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             String uname = textBox1.Text.ToString();
             String name = textBox2.Text.ToString();
+            String pass = textBox3.Text.ToString();
 
-            if (string.IsNullOrEmpty(uname) || !uname.EndsWith("manipal.edu"))
+            if (string.IsNullOrEmpty(uname) || !uname.EndsWith("@manipal.edu"))
                 MessageBox.Show("Enter a valid email id");
             else if (string.IsNullOrEmpty(name))
                 MessageBox.Show("Enter your name");
             else if (comboBox3.SelectedItem == null)
                 MessageBox.Show("Select your department");
+            else if (pass.Length <= 6)
+                MessageBox.Show("Password must be atleast 6 characters");
 
             else
             {
@@ -46,11 +49,21 @@ namespace DBS_LAB
                 try
                 {
                     connect();
-                    comm.CommandText = "insert into teacher(email_id, name, dept) values('"
+                    comm.CommandText = "insert into teacher(email_id, name, dept, pass) values('"
                         + uname + "', '" + name + "', '"
-                        + dept + "')";
+                        + dept + "', '" + pass + "')";
                     comm.ExecuteNonQuery();
 
+                    Form6 form6 = new Form6(uname);
+                    form6.Show();
+                    Form[] forms = Application.OpenForms.Cast<Form>().ToArray();
+                    foreach (Form thisForm in forms)
+                    {
+                        if (!thisForm.Name.Equals(form6.Name))
+                        {
+                            thisForm.Close();
+                        }
+                    }
                 }
                 catch (Exception err)
                 {
@@ -66,6 +79,12 @@ namespace DBS_LAB
             conn.Open();
             comm.CommandType = CommandType.Text;
             comm.Connection = conn;
+        }
+
+        private void Form4_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
     }
 }

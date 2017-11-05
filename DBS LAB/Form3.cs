@@ -17,7 +17,6 @@ namespace DBS_LAB
     {
         MySqlCommand comm = new MySqlCommand();
         MySqlConnection conn;
-        MySqlDataAdapter adapter;
 
         String[] sections = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         String[] sems = new String[] { "1", "2", "3", "4", "5", "6", "7", "8" };
@@ -30,12 +29,14 @@ namespace DBS_LAB
             comboBox1.Items.AddRange(sections);
             comboBox2.Items.AddRange(sems);
             comboBox3.Items.AddRange(branches);
+            this.FormClosed += new FormClosedEventHandler(Form3_FormClosed);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             String uname = textBox1.Text.ToString();
             String name = textBox2.Text.ToString();
+            String pass = textBox3.Text.ToString();
 
             if (uname.Length != 9 || !Regex.IsMatch(uname, @"^\d+$"))
                 MessageBox.Show("Enter a valid registration number");
@@ -47,6 +48,8 @@ namespace DBS_LAB
                 MessageBox.Show("Select your semester");
             else if (comboBox3.SelectedItem == null)
                 MessageBox.Show("Select your branch");
+            else if (pass.Length <= 6)
+                MessageBox.Show("Password must be atleast 6 characters");
 
             else
             {
@@ -56,12 +59,22 @@ namespace DBS_LAB
                 try
                 {
                     connect();
-                    comm.CommandText = "insert into student(reg_no, name, section, sem, branch) values("
+                    comm.CommandText = "insert into student(reg_no, name, section, sem, branch, pass) values("
                         + uname + ", '" + name + "', '"
                         + section + "', " + sem + ", '"
-                        + branch + "')";
+                        + branch + "', '" + pass + "')";
                     comm.ExecuteNonQuery();
 
+                    Form5 form5 = new Form5(uname);
+                    form5.Show();
+                    Form[] forms = Application.OpenForms.Cast<Form>().ToArray();
+                    foreach (Form thisForm in forms)
+                    {
+                        if (!thisForm.Name.Equals(form5.Name))
+                        {
+                            thisForm.Close();
+                        }
+                    }
                 }
                 catch (Exception err)
                 {
@@ -77,6 +90,12 @@ namespace DBS_LAB
             conn.Open();
             comm.CommandType = CommandType.Text;
             comm.Connection = conn;
+        }
+
+        private void Form3_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
     }
 }

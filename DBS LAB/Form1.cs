@@ -17,11 +17,12 @@ namespace DBS_LAB
     {
         MySqlCommand comm = new MySqlCommand();
         MySqlConnection conn;
-        MySqlDataAdapter adapter;
+        bool flag = false;
 
         public Form1()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form1_FormClosed);
         }
 
         private void button_login_Click(object sender, EventArgs e)
@@ -44,15 +45,30 @@ namespace DBS_LAB
                     if (uname.Length == 9 && Regex.IsMatch(uname, @"^\d+$"))
                     {
                         comm.CommandText = "select pass from student where reg_no = " + uname;
+                        flag = true;
                     }
                     else
                     {
                         comm.CommandText = "select pass from teacher where email_id = '" + uname + "'";
+                        flag = false;
                     }
 
                     string stored_pass = (string)comm.ExecuteScalar();
                     if (pass == stored_pass)
-                        MessageBox.Show("Success");
+                    {
+                        if(flag)
+                        {
+                            Form5 form5 = new Form5(uname);
+                            form5.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            Form6 form6 = new Form6(uname);
+                            form6.Show();
+                            this.Close();
+                        }
+                    }
                     else
                         MessageBox.Show("Incorrect username or password");
                 }
@@ -76,6 +92,12 @@ namespace DBS_LAB
         {
             Form2 form2 = new Form2();
             form2.Show();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
     }
 }
