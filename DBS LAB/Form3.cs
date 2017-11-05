@@ -64,6 +64,7 @@ namespace DBS_LAB
                         + section + "', " + sem + ", '"
                         + branch + "', '" + pass + "')";
                     comm.ExecuteNonQuery();
+                    conn.Close();
 
                     Form5 form5 = new Form5(uname);
                     form5.Show();
