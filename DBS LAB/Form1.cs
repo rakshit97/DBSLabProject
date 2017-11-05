@@ -75,7 +75,6 @@ namespace DBS_LAB
         private void register_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Form2 form2 = new Form2();
-            this.Hide();
             form2.Show();
         }
     }

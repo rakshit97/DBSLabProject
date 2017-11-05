@@ -46,10 +46,11 @@
             // 
             // p_text
             // 
-            this.p_text.Location = new System.Drawing.Point(337, 229);
+            this.p_text.Location = new System.Drawing.Point(337, 199);
             this.p_text.Name = "p_text";
             this.p_text.Size = new System.Drawing.Size(132, 20);
             this.p_text.TabIndex = 1;
+            this.p_text.UseSystemPasswordChar = true;
             // 
             // u_label
             // 
@@ -63,7 +64,7 @@
             // p_label
             // 
             this.p_label.AutoSize = true;
-            this.p_label.Location = new System.Drawing.Point(251, 232);
+            this.p_label.Location = new System.Drawing.Point(251, 202);
             this.p_label.Name = "p_label";
             this.p_label.Size = new System.Drawing.Size(52, 13);
             this.p_label.TabIndex = 3;

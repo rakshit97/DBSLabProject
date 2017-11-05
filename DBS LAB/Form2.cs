@@ -16,5 +16,20 @@ namespace DBS_LAB
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            //this.Hide();
+            //Form1 form1 = (Form1)Form1.ActiveForm;
+            //form1.Hide();
+            form3.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4();
+            form4.Show();
+        }
     }
 }
