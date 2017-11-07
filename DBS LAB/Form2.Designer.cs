@@ -28,27 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(58, 88);
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(-1, -1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 37);
+            this.button1.Size = new System.Drawing.Size(193, 235);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Students";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(253, 88);
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(188, -1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 37);
+            this.button2.Size = new System.Drawing.Size(227, 235);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Teachers";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -56,7 +59,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 233);
+            this.ClientSize = new System.Drawing.Size(413, 233);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form2";
